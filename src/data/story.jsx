@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Nossa história — textos do site.
  * Datas: primeiro encontro / primeira mensagem 27/02/2026 · namoro oficial 03/04/2026
  */
@@ -39,7 +39,7 @@ export const story = {
       "Antes de qualquer mensagem, a história já vinha se desenhando: eu ouvi falar de você pelos meus pais — eles te conheceram e não paravam de dizer que você era gente boa, bonita e que eu ia gostar de você. Do seu lado, amigos da igreja que me conheciam também ajudaram a aproximar os caminhos.",
       "Você ainda não sabia tanto de mim assim, mas o universo foi empurrando. Depois disso começamos a nos seguir no Instagram — e foi você quem mandou a primeira mensagem, puxando assunto depois daquele jogo.",
       "A partir daí, conversávamos o tempo todo: sempre nos entendíamos e concordávamos nas mesmas coisas, com os mesmos gostos. Entramos no assunto de namoro, eu te chamei de \"vida\" e os apelidos carinhosos ficaram com a gente — até o dia em que falamos sério e decidimos: sim, estamos namorando.",
-      "Eu queria começar com data e com pedido oficial. No dia 03 de abril de 2026 começamos a namorar de verdade — e nesse mesmo clima de futuro já escolhemos o nome do nosso cachorro, Frederico, e dos nossos filhos: Pedro e Natália.",
+      "Eu queria começar com data e com pedido oficial. No dia 03 de abril de 2026 começamos a namorar de verdade — e nesse mesmo clima de futuro já escolhemos o nome do nosso cachorro, Frederico, e dos nossos filhos: Pedro e Cecília.",
     ],
     dateLine: "Primeiro encontro (e primeira mensagem) — 27 de fevereiro de 2026 · Namoro oficial — 3 de abril de 2026",
     captionLeft: "27.02.2026",
