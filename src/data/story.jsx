@@ -69,7 +69,7 @@ export const story = {
       num: "004",
       tag: "03.04.2026",
       title: "Namoro de verdade",
-      desc: "Decidimos oficialmente: data marcada e pedido feito. Frederico pro cachorro, Pedro e Natália pros filhos — sonho que a gente já planta enquanto namora e se ama desde o dia em que nos vimos pela primeira vez.",
+      desc: "Decidimos oficialmente: data marcada e pedido feito. Frederico pro cachorro, Pedro e Cecília pros filhos — sonho que a gente já planta enquanto namora e se ama desde o dia em que nos vimos pela primeira vez.",
     },
   ],
 
@@ -78,7 +78,7 @@ export const story = {
     paragraphs: [
       "Esse site é um pedaço do que eu sinto por você. Quis contar nossa história do jeito que aconteceu: pelos meus pais e pelos amigos, pelo Instagram, pela primeira mensagem depois do jogo, por cada conversa que virou rotina boa demais.",
       "Lembro do dia em que nos vimos pela primeira vez — 27 de fevereiro de 2026 — e da mensagem que você mandou, com aquele \"me perdoa o horário\". Desde então eu só quero mais perto, mais riso, mais nós.",
-      "No dia 3 de abril de 2026 eu quis começar direito, com data e com pedido. E contigo eu já penso em Frederico, Pedro e Natália — não como pressa, mas como vontade de futuro com você.",
+      "No dia 3 de abril de 2026 eu quis começar direito, com data e com pedido. E contigo eu já penso em Frederico, Pedro e Cecília — não como pressa, mas como vontade de futuro com você.",
       "Obrigado por ser quem você é. Te amo todos os dias.",
     ],
     assinatura: (
