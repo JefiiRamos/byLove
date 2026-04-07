@@ -6,13 +6,47 @@ import MediaImage from "./components/MediaImage";
 import { story } from "@/data/story";
 import { media } from "@/data/media";
 
+function useTouchOrNarrow() {
+  const [value, setValue] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px), (pointer: coarse)");
+    const update = () => setValue(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return value;
+}
+
+function useReducedMotion() {
+  const [value, setValue] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setValue(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return value;
+}
+
 export default function Home() {
   const [entered, setEntered] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
   const [siteReady, setSiteReady] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const touchOrNarrow = useTouchOrNarrow();
+  const reducedMotion = useReducedMotion();
   const cursorRef = useRef(null);
   const cursorDotRef = useRef(null);
+  const siteRef = useRef(null);
+
+  const useCustomCursor = !touchOrNarrow;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,12 +62,21 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrollY(y);
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      setScrollProgress(max > 0 ? Math.min(1, Math.max(0, y / max)) : 0);
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
+    if (!useCustomCursor) return undefined;
+
     let rafId;
     let mx = 0;
     let my = 0;
@@ -63,7 +106,36 @@ export default function Home() {
       window.removeEventListener("mousemove", onMove);
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [useCustomCursor]);
+
+  useEffect(() => {
+    if (!touchOrNarrow || reducedMotion || !siteReady) return undefined;
+
+    const root = siteRef.current;
+    if (!root) return undefined;
+
+    const nodes = root.querySelectorAll("[data-scroll-reveal]");
+    if (nodes.length === 0) return undefined;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.scrollRevealVisible);
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { root: null, rootMargin: "0px 0px -6% 0px", threshold: 0.08 }
+    );
+
+    nodes.forEach((node) => {
+      node.classList.add(styles.scrollReveal);
+      io.observe(node);
+    });
+
+    return () => io.disconnect();
+  }, [touchOrNarrow, reducedMotion, siteReady]);
 
   const handleEnter = () => {
     setEntered(true);
@@ -81,8 +153,21 @@ export default function Home() {
 
   return (
     <>
-      <div ref={cursorRef} className={styles.cursor} />
-      <div ref={cursorDotRef} className={styles.cursorDot} />
+      {useCustomCursor ? (
+        <>
+          <div ref={cursorRef} className={styles.cursor} aria-hidden />
+          <div ref={cursorDotRef} className={styles.cursorDot} aria-hidden />
+        </>
+      ) : null}
+
+      {touchOrNarrow && siteReady ? (
+        <div className={styles.scrollProgressTrack} aria-hidden>
+          <div
+            className={styles.scrollProgressFill}
+            style={{ transform: `scaleX(${scrollProgress})` }}
+          />
+        </div>
+      ) : null}
 
       <div className={`${styles.entry} ${entered ? styles.entryExit : ""}`}>
         <div className={styles.blobTL} />
@@ -113,7 +198,12 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={`${styles.site} ${siteReady ? styles.siteVisible : ""}`}>
+      <div
+        ref={siteRef}
+        className={`${styles.site} ${siteReady ? styles.siteVisible : ""} ${
+          touchOrNarrow ? styles.siteTouch : ""
+        }`}
+      >
         <nav className={`${styles.nav} ${scrollY > 60 ? styles.navSolid : ""}`}>
           <span className={styles.navLogo}>J&amp;N</span>
           <ul className={styles.navLinks}>
@@ -153,7 +243,7 @@ export default function Home() {
           <div className={styles.heroIndex}>001</div>
         </section>
 
-        <section className={styles.quoteSection}>
+        <section className={styles.quoteSection} data-scroll-reveal>
           <div className={styles.quoteWrap}>
             <div className={styles.quoteMark}>&ldquo;</div>
             <blockquote className={styles.quoteText}>{story.quote.text}</blockquote>
@@ -162,7 +252,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={styles.editorial} id="momentos">
+        <section className={styles.editorial} id="momentos" data-scroll-reveal>
           <div className={styles.editorialLeft}>
             <div className={styles.editorialPhotoWrap}>
               <MediaImage
@@ -192,7 +282,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={styles.momentos}>
+        <section className={styles.momentos} data-scroll-reveal>
           <div className={styles.momentosHeader}>
             <span className={styles.sectionNum}>02</span>
             <h2 className={styles.sectionTitle}>Nossos momentos</h2>
@@ -233,7 +323,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={styles.galeria} id="galeria">
+        <section className={styles.galeria} id="galeria" data-scroll-reveal>
           <div className={styles.galeriaHeader}>
             <span className={styles.sectionNum}>03</span>
             <h2 className={styles.sectionTitle}>Galeria de nós</h2>
@@ -266,7 +356,7 @@ export default function Home() {
         </section>
 
         {media.videos.length > 0 ? (
-          <section className={styles.videoSection} id="videos">
+          <section className={styles.videoSection} id="videos" data-scroll-reveal>
             <div className={styles.videoHeader}>
               <span className={styles.sectionNum}>04</span>
               <h2 className={styles.sectionTitle}>Vídeos</h2>
@@ -282,7 +372,7 @@ export default function Home() {
           </section>
         ) : null}
 
-        <section className={styles.carta} id="carta">
+        <section className={styles.carta} id="carta" data-scroll-reveal>
           <div className={styles.cartaBlob} />
           <div className={styles.cartaWrap}>
             <span className={styles.sectionNum}>05</span>
@@ -303,7 +393,7 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className={styles.footer}>
+        <footer className={styles.footer} data-scroll-reveal>
           <div className={styles.footerBlob} />
           <div className={styles.footerInner}>
             <span className={styles.footerLogo}>J &amp; N</span>

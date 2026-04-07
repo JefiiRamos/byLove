@@ -20,6 +20,54 @@
   z-index: 9999;
 }
 
+@media (max-width: 768px), (pointer: coarse) {
+  .cursor,
+  .cursorDot {
+    display: none !important;
+  }
+}
+
+/* Barra de leitura no scroll (mobile / touch) */
+.scrollProgressTrack {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 10001;
+  background: rgba(61, 43, 31, 0.1);
+  pointer-events: none;
+}
+.scrollProgressFill {
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, #6b4c3b, #c4a98a, #8b7355);
+  will-change: transform;
+}
+
+/* Revelar seções ao rolar (mobile / touch) */
+.scrollReveal {
+  opacity: 0;
+  transform: translate3d(0, 36px, 0);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.scrollRevealVisible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollReveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* ─── ENTRY SCREEN ─── */
 .entry {
   position: fixed;
@@ -157,6 +205,14 @@
 .siteVisible {
   opacity: 1;
   pointer-events: all;
+}
+
+.siteTouch .enterBtn {
+  cursor: pointer;
+}
+.siteTouch .momentoCard,
+.siteTouch .galeriaItem {
+  cursor: pointer;
 }
 
 /* ─── NAV ─── */
@@ -834,8 +890,119 @@
   .carta { padding: 6rem 6vw; }
 }
 
+@media (max-width: 768px) {
+  .entryHeader,
+  .entryFooter {
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+  .entryBody {
+    padding: 0 1rem;
+  }
+  .entryTitle {
+    font-size: clamp(2.75rem, 14vw, 4.5rem);
+    margin-bottom: 2rem;
+  }
+  .hero {
+    padding: max(5rem, env(safe-area-inset-top)) 6vw 3rem;
+    min-height: 100dvh;
+  }
+  .heroHeading {
+    font-size: clamp(2.4rem, 10vw, 5rem);
+  }
+  .heroSub {
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+  .heroIndex {
+    display: none;
+  }
+  .heroScroll {
+    left: 6vw;
+    bottom: max(2rem, env(safe-area-inset-bottom));
+  }
+  .quoteSection {
+    padding: 5rem 6vw;
+  }
+  .quoteText {
+    font-size: clamp(1.2rem, 4.5vw, 2rem);
+  }
+  .momentos,
+  .galeria,
+  .videoSection {
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+  .momentosHeader,
+  .galeriaHeader,
+  .videoHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+  .nav {
+    padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) 1rem max(1rem, env(safe-area-inset-left));
+  }
+  .navSolid {
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+  }
+  .navLinks {
+    flex-wrap: nowrap;
+    gap: 1rem;
+    max-width: min(72vw, 100%);
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+    margin: 0;
+    padding-left: 0;
+  }
+  .navLinks::-webkit-scrollbar {
+    display: none;
+  }
+  .navLinks a {
+    flex-shrink: 0;
+    letter-spacing: 0.12em;
+    font-size: 0.58rem;
+  }
+  .editorialPhotoFigure {
+    min-height: min(70vw, 420px);
+  }
+  .editorialCaption {
+    left: 1rem;
+    bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .momentoBody {
+    padding: 1.25rem;
+  }
+  .videoEl {
+    min-height: 180px;
+  }
+}
+
 @media (max-width: 600px) {
-  .navLinks { display: none; }
-  .entryTitle { font-size: 4rem; }
-  .galeriaGrid { grid-template-columns: 1fr; }
+  .entryTitle {
+    font-size: clamp(2.5rem, 12vw, 3.75rem);
+  }
+  .galeriaGrid {
+    grid-template-columns: 1fr;
+  }
+  .galeriaGridMany {
+    grid-auto-rows: minmax(200px, 55vw);
+  }
+  .footer {
+    padding: 4rem 6vw max(3rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 380px) {
+  .navLogo {
+    font-size: 0.95rem;
+  }
+  .navLinks {
+    max-width: 62vw;
+  }
 }

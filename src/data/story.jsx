@@ -49,13 +49,13 @@ export const story = {
   momentos: [
     {
       num: "001",
-      tag: "Antes do Instagram",
+      tag: "Primeiro café juntos",
       title: "Família e amigos no meio",
       desc: "Meus pais te conheceram e não paravam de falar bem de você. Amigos da igreja, que me conheciam, também ajudaram a costurar esse encontro. De um lado e de outro, o mundo empurrava a gente pro mesmo lugar.",
     },
     {
       num: "002",
-      tag: "Quinta à noite",
+      tag: "Sexta à noite",
       title: "A primeira mensagem",
       desc: "Depois de um jogo de futebol, numa quinta-feira por volta das 22h30, você puxou assunto no Instagram. A partir dali não tinha mais volta: conversa todo dia, risos e cumplicidade.",
     },

@@ -744,7 +744,18 @@
 }
 
 @media (max-width: 600px) {
-  .navLinks { display: none; }
   .entryTitle { font-size: 4rem; }
   .galeriaGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
