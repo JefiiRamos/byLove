@@ -1,0 +1,12 @@
+Fotos e vídeos do site
+======================
+
+1) Coloque seus arquivos aqui OU diretamente em: public/img/
+
+2) O Next.js exibe imagens e vídeos a partir da pasta public.
+   Exemplo: arquivo public/img/galeria-1.jpg aparece no site como /img/galeria-1.jpg
+
+3) Edite os nomes dos arquivos em: src/data/media.js
+   (lá estão os nomes esperados: editorial.jpg, galeria-1.jpg … video-1.mp4, etc.)
+
+Se preferir manter os arquivos só em src/img, copie-os para public/img/ com os mesmos nomes.

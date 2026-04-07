@@ -1,0 +1,71 @@
+# ─── Dependencies ───
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# ─── Next.js ───
+.next/
+out/
+build/
+dist/
+.vercel
+*.tsbuildinfo
+
+# ─── Debug / logs ───
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+lerna-debug.log*
+
+# ─── Environment & secrets ───
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+
+# ─── Testing & coverage ───
+coverage/
+.nyc_output/
+*.lcov
+
+# ─── TypeScript (se usar depois) ───
+*.tsbuildinfo
+
+# ─── ESLint cache ───
+.eslintcache
+
+# ─── Turbo / monorepo ───
+.turbo
+
+# ─── OS ───
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ─── Editors & IDEs ───
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# ─── Cursor / VS Code (opcional: descomente se não quiser versionar settings locais) ───
+# .vscode/
+# .cursor/
+
+# ─── Misc ───
+*.log
+*.pid
+*.seed
+*.pid.lock
+.cache/
