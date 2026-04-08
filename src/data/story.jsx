@@ -41,8 +41,8 @@ export const story = {
       "A partir daí, conversávamos o tempo todo: sempre nos entendíamos e concordávamos nas mesmas coisas, com os mesmos gostos. Entramos no assunto de namoro, eu te chamei de \"vida\" e os apelidos carinhosos ficaram com a gente — até o dia em que falamos sério e decidimos: sim, estamos namorando.",
       "Eu queria começar com data e com pedido oficial. No dia 03 de abril de 2026 começamos a namorar de verdade — e nesse mesmo clima de futuro já escolhemos o nome do nosso cachorro, Frederico, e dos nossos filhos: Pedro e Cecília.",
     ],
-    dateLine: "Primeiro encontro (e primeira mensagem) — 27 de fevereiro de 2026 · Namoro oficial — 3 de abril de 2026",
-    captionLeft: "27.02.2026",
+    dateLine: "Primeiro café juntos — 27 de março de 2026 · Namoro oficial — 3 de abril de 2026",
+    captionLeft: "27.03.2026",
     captionRight: "O começo de tudo",
   },
 

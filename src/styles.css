@@ -9,9 +9,13 @@
   --accent-strong: #f2f5fb;
   --pink: #ff6fae;
   --rose: #ff4f87;
+  --peach: #ffb3c8;
+  --gold: #ffd9a8;
   --light: #f7f8fb;
   --glass: rgba(16, 18, 26, 0.72);
   --glass-border: rgba(255, 255, 255, 0.12);
+  --shadow-strong: 0 18px 45px rgba(0, 0, 0, 0.35);
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.22);
 }
 
 * {
@@ -26,8 +30,18 @@ body {
   background:
     radial-gradient(1200px 700px at 12% -10%, rgba(207, 214, 230, 0.18), transparent 60%),
     radial-gradient(900px 600px at 88% 8%, rgba(255, 255, 255, 0.08), transparent 55%),
+    radial-gradient(700px 420px at 80% 85%, rgba(255, 111, 174, 0.16), transparent 60%),
+    radial-gradient(650px 380px at 12% 85%, rgba(255, 211, 230, 0.14), transparent 55%),
+    radial-gradient(900px 800px at 50% 50%, rgba(255, 255, 255, 0.03), transparent 60%),
     var(--bg-solid);
   overflow-x: hidden;
+}
+
+.bg-hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .bg-hearts::before,
@@ -37,16 +51,34 @@ body {
   inset: -20%;
   pointer-events: none;
   background-image:
-    radial-gradient(circle, rgba(255, 111, 174, 0.2) 0 4px, transparent 4px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.09) 0 3px, transparent 3px);
-  background-size: 180px 180px, 120px 120px;
+    radial-gradient(circle, rgba(255, 111, 174, 0.22) 0 4px, transparent 4px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.1) 0 3px, transparent 3px),
+    radial-gradient(circle, rgba(255, 211, 230, 0.12) 0 2px, transparent 2px);
+  background-size: 180px 180px, 120px 120px, 80px 80px;
   animation: floatBg 16s linear infinite;
+  filter: blur(0.2px);
 }
 
 .bg-hearts::after {
   transform: rotate(8deg);
   opacity: 0.7;
   animation-duration: 22s;
+}
+
+.bg-hearts::before {
+  mask-image:
+    radial-gradient(circle at 20% 20%, black 45%, transparent 70%),
+    radial-gradient(circle at 80% 65%, black 35%, transparent 65%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+
+.bg-hearts::after {
+  mask-image:
+    radial-gradient(circle at 65% 30%, black 40%, transparent 70%),
+    radial-gradient(circle at 30% 75%, black 45%, transparent 70%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
 }
 
 @keyframes floatBg {
@@ -72,24 +104,40 @@ body {
   position: fixed;
   inset: -15%;
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
 }
 
 .app.is-login::before {
   background-image:
     linear-gradient(transparent 78%, rgba(255, 255, 255, 0.06) 80%, transparent 82%),
-    linear-gradient(90deg, transparent 78%, rgba(255, 255, 255, 0.04) 80%, transparent 82%);
+    linear-gradient(90deg, transparent 78%, rgba(255, 255, 255, 0.04) 80%, transparent 82%),
+    radial-gradient(circle at 18% 20%, rgba(255, 217, 168, 0.28), transparent 45%),
+    radial-gradient(circle at 82% 30%, rgba(255, 111, 174, 0.24), transparent 40%),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.16), transparent 45%);
   background-size: 140px 140px;
-  opacity: 0.35;
-  mask-image: radial-gradient(circle at 35% 20%, black 35%, transparent 70%);
+  opacity: 0.6;
+  animation: loginGlow 14s ease-in-out infinite;
 }
 
 .app.is-login::after {
   background:
     radial-gradient(circle at 20% 25%, rgba(207, 214, 230, 0.22), transparent 45%),
     radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.12), transparent 40%),
-    radial-gradient(circle at 50% 85%, rgba(160, 170, 190, 0.2), transparent 50%);
-  filter: blur(2px);
+    radial-gradient(circle at 50% 85%, rgba(160, 170, 190, 0.2), transparent 50%),
+    radial-gradient(circle at 65% 65%, rgba(255, 111, 174, 0.18), transparent 45%);
+  filter: blur(4px);
+  opacity: 0.75;
+  animation: loginGlow 18s ease-in-out infinite reverse;
+}
+
+@keyframes loginGlow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-18px, 16px, 0);
+  }
 }
 
 .bg-hearts.hidden::before,
@@ -122,7 +170,22 @@ body {
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(12px);
   border-radius: 20px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(140deg, rgba(255, 255, 255, 0.08), transparent 40%),
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.06), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.05), transparent 40%);
+  opacity: 0.7;
 }
 
 .panel-gate {
@@ -135,11 +198,87 @@ body {
   width: min(640px, 100%);
   text-align: center;
   padding: 2.4rem 2rem 2.2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .panel-login {
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
+  background-image:
+    radial-gradient(circle at 10% 15%, rgba(255, 217, 168, 0.35), transparent 45%),
+    radial-gradient(circle at 85% 20%, rgba(255, 111, 174, 0.3), transparent 40%),
+    radial-gradient(circle at 75% 85%, rgba(255, 211, 230, 0.28), transparent 45%),
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.18), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 111, 174, 0.2), transparent 55%);
+  animation: loginOrbs 16s ease-in-out infinite;
+}
+
+.panel-login::before,
+.panel-login::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.panel-login::before {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 217, 168, 0.16), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(255, 111, 174, 0.14), transparent 40%),
+    radial-gradient(circle at 50% 85%, rgba(255, 255, 255, 0.08), transparent 40%);
+  filter: blur(6px);
+  animation: driftGlow 12s ease-in-out infinite;
+}
+
+.panel-login::after {
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.16) 0 1px, transparent 2px),
+    radial-gradient(circle, rgba(255, 211, 230, 0.18) 0 2px, transparent 3px);
+  background-size: 140px 140px, 200px 200px;
+  opacity: 0.7;
+  animation: floatDust 18s linear infinite;
+}
+
+@keyframes driftGlow {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(18px) translateX(-12px);
+  }
+}
+
+@keyframes floatDust {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(140px);
+  }
+}
+
+@keyframes loginOrbs {
+  0%,
+  100% {
+    background-position:
+      10% 15%,
+      85% 20%,
+      75% 85%,
+      20% 80%,
+      50% 50%;
+  }
+  50% {
+    background-position:
+      15% 20%,
+      80% 25%,
+      70% 80%,
+      25% 75%,
+      55% 55%;
+  }
 }
 
 .login-card {
@@ -147,7 +286,7 @@ body {
     linear-gradient(180deg, rgba(22, 24, 34, 0.94) 0%, rgba(14, 16, 24, 0.92) 100%);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 35px 90px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(20px);
 }
@@ -215,7 +354,9 @@ input:focus {
 
 button {
   padding: 0.95rem 1.3rem;
-  background: linear-gradient(180deg, #f6f8fc 0%, #dfe4ef 100%);
+  background:
+    linear-gradient(180deg, #f6f8fc 0%, #dfe4ef 100%),
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.9), transparent 40%);
   color: #0f1218;
   border: 1px solid rgba(255, 255, 255, 0.7);
   cursor: pointer;
@@ -249,6 +390,7 @@ button:hover {
 .hero {
   text-align: center;
   padding: 2rem 1.2rem;
+  position: relative;
 }
 
 .tag {
@@ -258,6 +400,42 @@ button:hover {
   color: #ffd8ea;
 }
 
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.hero::before {
+  background: radial-gradient(circle, rgba(255, 111, 174, 0.5), transparent 70%);
+  top: -80px;
+  left: -40px;
+  animation: floatOrb 10s ease-in-out infinite;
+}
+
+.hero::after {
+  background: radial-gradient(circle, rgba(255, 217, 168, 0.45), transparent 70%);
+  bottom: -90px;
+  right: -40px;
+  animation: floatOrb 12s ease-in-out infinite reverse;
+}
+
+@keyframes floatOrb {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(14px);
+  }
+}
+
 .hero-text {
   margin: 0.7rem auto 1rem;
   width: min(700px, 100%);
@@ -265,6 +443,28 @@ button:hover {
 
 .cta {
   margin-top: 0.3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%) skewX(-18deg);
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+  opacity: 0.8;
+  animation: shine 6s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0%,
+  70% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(140%) skewX(-18deg);
+  }
 }
 
 .surprise {
@@ -282,6 +482,29 @@ button:hover {
 
 .card {
   padding: 1.1rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(130deg, rgba(255, 255, 255, 0.12), transparent 55%),
+    linear-gradient(320deg, rgba(255, 111, 174, 0.18), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-strong);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .counter {
@@ -308,12 +531,80 @@ button:hover {
 .reason-btn {
   padding: 0.55rem 0.8rem;
   font-size: 0.92rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 247, 252, 0.7) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: #0f1218;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
 }
 
 .reason-text {
   margin-top: 0.7rem;
   color: #ffe7f2;
   font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .app {
+    width: min(720px, 92%);
+    padding-top: 1.4rem;
+  }
+
+  .hero {
+    padding: 1.6rem 1rem;
+  }
+
+  .tag {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    background:
+      radial-gradient(700px 420px at 50% -10%, rgba(207, 214, 230, 0.18), transparent 60%),
+      radial-gradient(620px 420px at 80% 10%, rgba(255, 255, 255, 0.08), transparent 55%),
+      radial-gradient(520px 340px at 50% 85%, rgba(255, 111, 174, 0.18), transparent 60%),
+      var(--bg-solid);
+  }
+
+  .panel-gate .glass {
+    padding: 2rem 1.4rem 1.8rem;
+  }
+
+  .login-badge {
+    font-size: 0.66rem;
+  }
+
+  h1 {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+
+  .hero-text {
+    font-size: 0.96rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero {
+    padding: 1.4rem 0.9rem;
+  }
+
+  .cta {
+    width: 100%;
+  }
+
+  input,
+  button {
+    border-radius: 12px;
+  }
 }
 
 .sr-only {
