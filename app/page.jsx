@@ -250,6 +250,8 @@ export default function Home() {
         <div className={styles.blobTL} />
         <div className={styles.blobBR} />
         <div className={styles.blobCenter} />
+        <div className={styles.entryCinematicGlow} aria-hidden />
+        <div className={styles.entryVignette} aria-hidden />
         <div className={styles.entryGrain} />
         <div className={styles.entryFrame} />
         <div className={styles.entrySparkles} aria-hidden>

@@ -68,7 +68,8 @@
   }
   .entrySparkles span,
   .entryOrbit,
-  .entryGrain {
+  .entryGrain,
+  .entryCinematicGlow {
     animation: none !important;
   }
   .entryBody {
@@ -125,6 +126,27 @@
   filter: blur(60px);
   pointer-events: none;
 }
+.entryCinematicGlow {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(900px 500px at 20% 20%, rgba(255,233,210,0.35), transparent 65%),
+    radial-gradient(800px 480px at 80% 70%, rgba(196,169,138,0.35), transparent 70%);
+  filter: blur(10px);
+  opacity: 0.9;
+  pointer-events: none;
+  animation: glowDrift 16s ease-in-out infinite alternate;
+}
+.entryVignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 50%, rgba(35,25,18,0.35) 100%),
+    radial-gradient(circle at 50% 120%, rgba(35,25,18,0.35), transparent 60%);
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+  pointer-events: none;
+}
 .entryGrain {
   position: absolute;
   inset: -40%;
@@ -171,6 +193,10 @@
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-40px, -60px, 0); }
 }
+@keyframes glowDrift {
+  from { transform: translate3d(-10px, -10px, 0) scale(1); }
+  to { transform: translate3d(20px, 10px, 0) scale(1.04); }
+}
 @keyframes blobDrift {
   from { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; }
   to   { border-radius: 40% 60% 30% 70% / 60% 40% 50% 50%; }
@@ -181,7 +207,7 @@
 }
 
 .entryHeader {
-  padding: 2.5rem 3rem;
+  padding: calc(3.5rem + env(safe-area-inset-top)) 3rem 2rem;
   display: flex;
   justify-content: center;
 }
@@ -297,7 +323,7 @@
 }
 
 .entryFooter {
-  padding: 2rem 3rem;
+  padding: 2rem 3rem calc(3.5rem + env(safe-area-inset-bottom));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1041,6 +1067,12 @@
   .entryFooter {
     padding-left: max(1.25rem, env(safe-area-inset-left));
     padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+  .entryHeader {
+    padding-top: max(3rem, env(safe-area-inset-top));
+  }
+  .entryFooter {
+    padding-bottom: max(3rem, env(safe-area-inset-bottom));
   }
   .entryFrame {
     inset: 1.25rem;
