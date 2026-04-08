@@ -325,7 +325,10 @@ export default function Home() {
         <div className={styles.siteGlow} aria-hidden />
         <div className={styles.siteVignette} aria-hidden />
         <div className={styles.siteGrain} aria-hidden />
-        <nav className={`${styles.nav} ${scrollY > 60 ? styles.navSolid : ""}`}>
+        <div className={styles.siteContent}>
+          <div className={styles.siteCard}>
+            <div className={styles.siteFrame} aria-hidden />
+            <nav className={`${styles.nav} ${scrollY > 60 ? styles.navSolid : ""}`}>
           <span className={styles.navLogo}>J&amp;N</span>
           <ul className={styles.navLinks}>
             <li>
@@ -523,6 +526,8 @@ export default function Home() {
             <span className={styles.footerYear}>♡ {new Date().getFullYear()}</span>
           </div>
         </footer>
+        </div>
+        </div>
       </div>
     </>
   );

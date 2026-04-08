@@ -376,6 +376,8 @@
   transition: opacity 0.8s ease 0.1s;
   pointer-events: none;
   position: relative;
+  --frameInset: 2.5rem;
+  --cardInset: 0rem;
 }
 .siteVisible {
   opacity: 1;
@@ -398,6 +400,21 @@
   inset: 0;
   pointer-events: none;
   z-index: 2;
+}
+.siteContent {
+  position: relative;
+  z-index: 4;
+  padding: 0;
+}
+.siteCard {
+  position: relative;
+  margin: var(--frameInset);
+  border-radius: 28px;
+  overflow: hidden;
+  background: #f5f0e8;
+  padding: var(--cardInset);
+  box-sizing: border-box;
+  min-height: calc(100vh - (var(--frameInset) * 2));
 }
 .siteGlow {
   background:
@@ -424,12 +441,23 @@
   opacity: 0.2;
   animation: grainFloat 24s ease-in-out infinite alternate;
 }
+.siteFrame {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(61,43,31,0.12);
+  border-radius: 28px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.5) inset,
+    0 24px 60px rgba(61,43,31,0.08);
+  z-index: 5;
+  pointer-events: none;
+}
 
 /* ─── NAV ─── */
 .nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 50;
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -467,13 +495,13 @@
 
 /* ─── HERO ─── */
 .hero {
-  min-height: 100vh;
+  min-height: calc(100vh - (var(--frameInset) * 2) - (var(--cardInset) * 2));
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 0 10vw;
+  padding: 6rem 10vw 0;
 }
 .heroBg {
   position: absolute;
@@ -1101,6 +1129,17 @@
 }
 
 @media (max-width: 768px) {
+  .site {
+    --frameInset: 0rem;
+    --cardInset: 0rem;
+  }
+  .siteCard {
+    border-radius: 0;
+    margin: 0;
+  }
+  .siteFrame {
+    display: none;
+  }
   .entryHeader,
   .entryFooter {
     padding-left: max(1.25rem, env(safe-area-inset-left));
@@ -1114,6 +1153,10 @@
   }
   .entryFrame {
     inset: 1.25rem;
+    border-radius: 20px;
+  }
+  .siteFrame {
+    inset: var(--frameInset);
     border-radius: 20px;
   }
   .entryBody {

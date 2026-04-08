@@ -27,7 +27,7 @@ const GALLERY = [
 ];
 
 const VIDEOS = [
-  { file: "WhatsApp Video 2026-04-05 at 23.34.48.mp4", caption: "05 de abril — vídeo" },
+  { file: "WhatsApp Video 2026-04-05 at 23.34.48.mp4", caption: "05 de abril — Um vídeo para os nossos filhos" },
 ];
 
 /** Miniaturas dos 4 cards: primeira = foto do primeiro dia */
