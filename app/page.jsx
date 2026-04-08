@@ -40,10 +40,14 @@ export default function Home() {
   const [siteReady, setSiteReady] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [motionSupported, setMotionSupported] = useState(false);
+  const [motionNeedsPermission, setMotionNeedsPermission] = useState(false);
+  const [motionEnabled, setMotionEnabled] = useState(false);
   const touchOrNarrow = useTouchOrNarrow();
   const reducedMotion = useReducedMotion();
   const cursorRef = useRef(null);
   const cursorDotRef = useRef(null);
+  const entryRef = useRef(null);
   const siteRef = useRef(null);
 
   const useCustomCursor = !touchOrNarrow;
@@ -109,6 +113,76 @@ export default function Home() {
   }, [useCustomCursor]);
 
   useEffect(() => {
+    if (touchOrNarrow || reducedMotion) return undefined;
+    const root = entryRef.current;
+    if (!root) return undefined;
+
+    const onMove = (e) => {
+      const rect = root.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      root.style.setProperty("--mx", x.toFixed(3));
+      root.style.setProperty("--my", y.toFixed(3));
+    };
+
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [touchOrNarrow, reducedMotion]);
+
+  useEffect(() => {
+    if (!touchOrNarrow || reducedMotion) return undefined;
+    if (typeof window === "undefined") return undefined;
+
+    const supported = "DeviceOrientationEvent" in window;
+    setMotionSupported(supported);
+    if (!supported) return undefined;
+
+    const needsPermission =
+      typeof DeviceOrientationEvent.requestPermission === "function";
+    setMotionNeedsPermission(needsPermission);
+
+    if (!needsPermission) {
+      setMotionEnabled(true);
+    }
+
+    return undefined;
+  }, [touchOrNarrow, reducedMotion]);
+
+  useEffect(() => {
+    if (!touchOrNarrow || reducedMotion || !motionEnabled) return undefined;
+    const root = entryRef.current;
+    if (!root) return undefined;
+
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+    const onOrientation = (e) => {
+      const gamma = e.gamma ?? 0;
+      const beta = e.beta ?? 0;
+      const x = clamp(gamma / 60, -0.5, 0.5);
+      const y = clamp(beta / 60, -0.5, 0.5);
+      root.style.setProperty("--mx", x.toFixed(3));
+      root.style.setProperty("--my", y.toFixed(3));
+    };
+
+    window.addEventListener("deviceorientation", onOrientation, true);
+    return () => window.removeEventListener("deviceorientation", onOrientation, true);
+  }, [touchOrNarrow, reducedMotion, motionEnabled]);
+
+  const handleEnableMotion = async () => {
+    if (!motionNeedsPermission) {
+      setMotionEnabled(true);
+      return;
+    }
+    try {
+      const result = await DeviceOrientationEvent.requestPermission();
+      if (result === "granted") {
+        setMotionEnabled(true);
+      }
+    } catch {
+      setMotionEnabled(false);
+    }
+  };
+
+  useEffect(() => {
     if (!touchOrNarrow || reducedMotion || !siteReady) return undefined;
 
     const root = siteRef.current;
@@ -169,10 +243,23 @@ export default function Home() {
         </div>
       ) : null}
 
-      <div className={`${styles.entry} ${entered ? styles.entryExit : ""}`}>
+      <div
+        ref={entryRef}
+        className={`${styles.entry} ${entered ? styles.entryExit : ""}`}
+      >
         <div className={styles.blobTL} />
         <div className={styles.blobBR} />
         <div className={styles.blobCenter} />
+        <div className={styles.entryGrain} />
+        <div className={styles.entryFrame} />
+        <div className={styles.entrySparkles} aria-hidden>
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
 
         <header className={styles.entryHeader}>
           <span className={styles.entryLogo}>J&amp;N</span>
@@ -184,6 +271,10 @@ export default function Home() {
             Jeferson<br />
             <em>&amp; Nicole</em>
           </h1>
+          <p className={styles.entryNote}>
+            Um portal para nossas memorias, detalhes e promessas.
+          </p>
+          <div className={styles.entryDivider} />
           <button
             className={styles.enterBtn}
             onClick={handleEnter}
@@ -191,9 +282,34 @@ export default function Home() {
           >
             {loadProgress < 100 ? "carregando..." : "ENTRAR"}
           </button>
+          {touchOrNarrow ? (
+            motionSupported ? (
+              motionNeedsPermission && !motionEnabled ? (
+                <button
+                  type="button"
+                  className={styles.entryHintButton}
+                  onClick={handleEnableMotion}
+                >
+                  ativar movimento do celular
+                </button>
+              ) : (
+                <span className={styles.entryHint}>mexa o celular e sinta</span>
+              )
+            ) : (
+              <span className={styles.entryHint}>toque para entrar</span>
+            )
+          ) : (
+            <span className={styles.entryHint}>passe o mouse e sinta</span>
+          )}
         </div>
 
         <div className={styles.entryFooter}>
+          <div className={styles.entryOrbit} aria-hidden>
+            <span />
+          </div>
+          <span className={styles.entryLoadingLabel}>
+            {loadProgress < 100 ? "organizando lembrancas" : "pronto para voce"}
+          </span>
           <span className={styles.progressNum}>{Math.min(loadProgress, 100)}%</span>
         </div>
       </div>
