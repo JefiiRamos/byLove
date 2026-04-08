@@ -1252,10 +1252,14 @@
     margin-bottom: 3rem;
   }
   .nav {
-    padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) 1rem max(1rem, env(safe-area-inset-left));
+    padding: max(1.25rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) 1.1rem max(1.25rem, env(safe-area-inset-left));
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
   }
   .navSolid {
-    padding-top: max(0.75rem, env(safe-area-inset-top));
+    padding-top: max(1rem, env(safe-area-inset-top));
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
   }
   .navLinks {
     flex-wrap: nowrap;
@@ -1275,7 +1279,7 @@
   .navLinks a {
     flex-shrink: 0;
     letter-spacing: 0.12em;
-    font-size: 0.58rem;
+    font-size: 0.7rem;
   }
   .editorialPhotoFigure {
     min-height: min(70vw, 420px);
