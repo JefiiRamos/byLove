@@ -69,7 +69,9 @@
   .entrySparkles span,
   .entryOrbit,
   .entryGrain,
-  .entryCinematicGlow {
+  .entryCinematicGlow,
+  .siteGlow,
+  .siteGrain {
     animation: none !important;
   }
   .entryBody {
@@ -373,6 +375,7 @@
   opacity: 0;
   transition: opacity 0.8s ease 0.1s;
   pointer-events: none;
+  position: relative;
 }
 .siteVisible {
   opacity: 1;
@@ -385,6 +388,41 @@
 .siteTouch .momentoCard,
 .siteTouch .galeriaItem {
   cursor: pointer;
+}
+
+/* â”€â”€â”€ GLOBAL CINEMATIC LAYER â”€â”€â”€ */
+.siteGlow,
+.siteVignette,
+.siteGrain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.siteGlow {
+  background:
+    radial-gradient(1200px 680px at 10% 10%, rgba(255,233,210,0.35), transparent 65%),
+    radial-gradient(1100px 640px at 90% 80%, rgba(196,169,138,0.32), transparent 70%);
+  filter: blur(12px);
+  opacity: 0.9;
+  animation: glowDrift 22s ease-in-out infinite alternate;
+}
+.siteVignette {
+  background:
+    radial-gradient(circle at 50% 50%, transparent 55%, rgba(35,25,18,0.28) 100%),
+    radial-gradient(circle at 50% 120%, rgba(35,25,18,0.25), transparent 60%);
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+}
+.siteGrain {
+  background-image:
+    radial-gradient(rgba(61,43,31,0.05) 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 90px 90px, 140px 140px;
+  background-position: 0 0, 50px 70px;
+  mix-blend-mode: soft-light;
+  opacity: 0.2;
+  animation: grainFloat 24s ease-in-out infinite alternate;
 }
 
 /* ─── NAV ─── */
@@ -440,7 +478,7 @@
 .heroBg {
   position: absolute;
   inset: 0;
-  background: #f5f0e8;
+  background: radial-gradient(120% 120% at 50% 20%, #f7f1e6 0%, #f0e6d6 60%, #e9dcc9 100%);
 }
 .heroBlob1 {
   position: absolute;
@@ -711,7 +749,7 @@
 /* ─── MOMENTOS ─── */
 .momentos {
   padding: 8rem 6vw;
-  background: #f5f0e8;
+  background: radial-gradient(120% 120% at 20% 0%, #f7f1e6 0%, #f0e6d6 70%, #e9dcc9 100%);
 }
 .momentosHeader {
   display: flex;
@@ -816,7 +854,7 @@
 /* ─── GALERIA ─── */
 .galeria {
   padding: 8rem 6vw;
-  background: #faf8f4;
+  background: radial-gradient(120% 120% at 80% 0%, #fbf8f2 0%, #f3eadc 70%, #eadfcd 100%);
 }
 .galeriaHeader {
   display: flex;
@@ -899,7 +937,7 @@
 /* ─── VÍDEOS ─── */
 .videoSection {
   padding: 8rem 6vw;
-  background: #f5f0e8;
+  background: radial-gradient(120% 120% at 30% 0%, #f6f0e6 0%, #efe4d4 70%, #e6d8c2 100%);
 }
 .videoHeader {
   display: flex;
@@ -936,7 +974,7 @@
 /* ─── CARTA ─── */
 .carta {
   padding: 10rem 10vw;
-  background: #3d2b1f;
+  background: radial-gradient(120% 120% at 50% 0%, #3f2e22 0%, #2b1f17 70%, #1f150f 100%);
   position: relative;
   overflow: hidden;
 }
@@ -988,7 +1026,7 @@
 
 /* ─── FOOTER ─── */
 .footer {
-  background: #2a1f17;
+  background: radial-gradient(120% 120% at 50% 0%, #2f231a 0%, #231910 70%, #1a120c 100%);
   padding: 6rem 10vw;
   position: relative;
   overflow: hidden;

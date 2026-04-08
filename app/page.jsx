@@ -322,6 +322,9 @@ export default function Home() {
           touchOrNarrow ? styles.siteTouch : ""
         }`}
       >
+        <div className={styles.siteGlow} aria-hidden />
+        <div className={styles.siteVignette} aria-hidden />
+        <div className={styles.siteGrain} aria-hidden />
         <nav className={`${styles.nav} ${scrollY > 60 ? styles.navSolid : ""}`}>
           <span className={styles.navLogo}>J&amp;N</span>
           <ul className={styles.navLinks}>
