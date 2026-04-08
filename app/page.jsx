@@ -481,9 +481,17 @@ export default function Home() {
 
         {media.videos.length > 0 ? (
           <section className={styles.videoSection} id="videos" data-scroll-reveal>
-            <div className={styles.videoHeader}>
+            <div className={styles.videoTextCol}>
+              <div className={styles.videoHeader}>
               <span className={styles.sectionNum}>04</span>
               <h2 className={styles.sectionTitle}>Vídeos</h2>
+            </div>
+            <div className={styles.videoIntro}>
+              <p>
+                Um recado gravado para nossos futuros filhos: sobre carinho, respeito e
+                como cuidar de quem se ama, assim como a gente sempre tentou fazer.
+              </p>
+              </div>
             </div>
             <div className={styles.videoGrid}>
               {media.videos.map((v, i) => (

@@ -964,29 +964,49 @@
 
 /* ─── VÍDEOS ─── */
 .videoSection {
-  padding: 8rem 6vw;
+  padding: 6rem 6vw;
   background: radial-gradient(120% 120% at 30% 0%, #f6f0e6 0%, #efe4d4 70%, #e6d8c2 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 3rem;
+  align-items: center;
+}
+.videoTextCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 .videoHeader {
   display: flex;
   align-items: baseline;
   gap: 1.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 0;
+}
+.videoIntro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #6b4c3b;
+  max-width: 460px;
 }
 .videoGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
   gap: 2rem;
 }
 .videoFigure {
   margin: 0;
+  max-width: 720px;
+  justify-self: end;
 }
 .videoEl {
   width: 100%;
   display: block;
   border-radius: 4px;
   background: #2a1f17;
-  min-height: 200px;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
 }
 .videoCaption {
   font-family: 'Raleway', sans-serif;
@@ -1126,6 +1146,27 @@
   .galeriaItemWide { grid-column: span 1; }
 
   .carta { padding: 6rem 6vw; }
+  .videoSection {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .videoTextCol {
+    order: 1;
+  }
+  .videoIntro {
+    max-width: none;
+  }
+  .videoGrid {
+    order: 2;
+  }
+  .videoFigure {
+    justify-self: center;
+    max-width: 520px;
+    width: 100%;
+  }
+  .videoEl {
+    max-height: 60vh;
+  }
 }
 
 @media (max-width: 768px) {
